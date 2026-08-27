@@ -1,0 +1,23 @@
+name: isolation-tests
+on:
+  pull_request:
+    branches: [main, feat/*]
+  push:
+    branches: [main]
+jobs:
+  rls-isolation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Boot stack
+        run: docker compose up -d --wait
+      - name: Wait for schema init
+        run: sleep 20
+      - name: Run isolation tests A-F
+        run: |
+          docker exec -i rubbertrack-platform-postgres-1 \
+            psql "postgresql://app_role:apppass@localhost:5432/rubbertrack" \
+            < tests/isolation.sql
+      - name: Teardown
+        if: always
+        run: docker compose down -v

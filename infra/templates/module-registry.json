@@ -1,0 +1,23 @@
+{
+  "_comment": "Module registry — defines which modules each template enables. Drives the dynamic module system (Phase 1). Adding a module here + a tenant template reference turns it on per-tenant without code changes.",
+  "modules": {
+    "dashboard":   { "label": "Dashboard",     "kind": "summary",  "collections": ["records","tickets","parties","feed_items"] },
+    "records":     { "label": "Order Records",  "kind": "crud",     "collections": ["records"] },
+    "parties":     { "label": "Parties",        "kind": "crud",     "collections": ["parties"], "splits": { "supplier": "Suppliers", "customer": "Customers" } },
+    "tickets":     { "label": "Issues",         "kind": "crud",     "collections": ["tickets"] },
+    "attendance":  { "label": "Attendance",     "kind": "crud",     "collections": ["hr_events"] },
+    "news":        { "label": "News Feed",      "kind": "cms",      "collections": ["feed_items"] },
+    "docs":        { "label": "Doc Tools",     "kind": "ai",       "collections": ["files"], "requires": ["embeddings"] },
+    "checklists":  { "label": "Checklists",    "kind": "crud",     "collections": ["checklists"] }
+  },
+  "templates": {
+    "rubbertrack": {
+      "label": "RubberTrack",
+      "enabled": ["dashboard","records","parties","tickets","attendance","news","docs","checklists"]
+    },
+    "services": {
+      "label": "Generic Services",
+      "enabled": ["dashboard","records","parties","tickets","news","docs","checklists"]
+    }
+  }
+}

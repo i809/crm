@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RubberTrack — Operations Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- Commodity ticker -->
+<div class="ticker" id="ticker" aria-label="Market ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<div class="shell">
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">RT</div>
+      <div class="brand-text">
+        <span class="brand-name">RubberTrack</span>
+        <span class="brand-sub">B2B Operations</span>
+      </div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="sidebar-foot">
+      <div class="tenant-chip" id="tenantChip" title="Active tenant">
+        <span class="dot"></span><span id="tenantName">RubberTrack Demo</span>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Main -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+      <div class="page-head">
+        <h1 id="pageTitle">Dashboard</h1>
+        <span class="crumb" id="pageCrumb">Overview · Live</span>
+      </div>
+      <div class="top-actions">
+        <label class="search">
+          <span>⌕</span>
+          <input id="globalSearch" type="search" placeholder="Search orders, suppliers…">
+        </label>
+        <select class="tenant-select" id="tenantSelect" title="Tenant">
+          <option>RubberTrack Demo</option>
+          <option>Lexley Rubber</option>
+          <option>Tiong Huat Trading</option>
+        </select>
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">◐</button>
+        <button class="icon-btn bell" title="Notifications">◔<span class="badge" id="notifBadge">4</span></button>
+        <div class="avatar" title="A. Trader — tenant-admin">AT</div>
+      </div>
+    </header>
+
+    <main class="content" id="content"></main>
+  </div>
+</div>
+
+<!-- Mobile bottom nav -->
+<nav class="bottomnav" id="bottomnav"></nav>
+
+<script src="app.js"></script>
+</body>
+</html>

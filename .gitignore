@@ -1,0 +1,22 @@
+# secrets / local config
+.env
+.env.*
+!.env.example
+
+# node
+node_modules/
+.next/
+dist/
+build/
+*.log
+
+# docker postgres data volume
+infra/data/
+
+# os / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+backups/
