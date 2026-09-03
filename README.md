@@ -20,19 +20,29 @@ docker exec -it $(docker ps -q -f name=directus) npx directus-template-cli@lates
 ### 1) Bootstrap a tenant
 
 ```bash
-node apps/bff/scripts/onboard-tenant.js rubbertrack --template=rubbertrack
+node --env-file=.env apps/bff/scripts/onboard-tenant.js rubbertrack --template=rubbertrack
 ```
+
+The script reads `DIRECTUS_URL`, `ADMIN_EMAIL` and `ADMIN_PASSWORD` from `.env`
+(see `.env.example`). It creates the tenant record, clones the template
+collections, creates the standard roles, and seeds sample orders unless you pass
+`--no-seed`.
 
 ### 2) Enable RLS (per client)
 
+The tenancy helper (`infra/tenancy/helper.sql`) is already applied automatically
+when the Postgres container first starts. To re-run it on an existing database:
+
 ```bash
-psql $DATABASE_URL -f infra/tenancy/helper.sql
+docker compose exec postgres psql -U postgres -d rubbertrack -f /docker-entrypoint-initdb.d/01_helper.sql
 ```
 
-### 3) Run isolation tests
+### 3) Smoke-test services
 
 ```bash
-node apps/bff/scripts/isolation-test.js
+curl http://localhost:4000/health   # BFF
+curl http://localhost:5000/health   # AI service
+curl -X POST http://localhost:4000/ai/chat -H 'content-type: application/json' -d '{"message":"hi"}'
 ```
 
 ## Docs
